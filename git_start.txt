@@ -59,6 +59,8 @@ git remote add origin https://github.com/Laxmi-Narayana/springGitWorkspace.git
 $ git remote -v
 # Verifies the new remote URL
 
+git push origin master
+
 git show-ref
 
 git push --set-upstream origin master
