@@ -1,0 +1,86 @@
+install git
+	https://git-scm.com/download/win
+
+open git bash
+
+git config --list
+
+git config --global user.name "laxminarayanagellu@gmail.com"
+
+git config --global user.name "lucky2000"
+
+git config --global core.editor "C:/Program Files/Notepad++/notepad++.exe"
+
+-h for help of a command
+ex: 
+	git add -h 
+	git status -h
+
+navigate to the required folder
+or
+mkdir git_lucky
+cd git_lucky
+
+git init   : creates git local repository in the git_lucky folder
+
+touch filename : creates a file
+
+edit the file and save it.
+
+git add . : adds all the files to the staging area of git.
+
+git status : shows the untracked files and modified files and staged files
+
+untracked files are files which are created but not part of the git repository.
+
+git commit -m "first commit" : creates snapshot of the files. all the files which are in staging area are saved now.
+
+git status
+
+git log --pretty=oneline
+
+to change the message of the previous commit
+
+git commit --amend -m "wow lucky"
+
+to add files to the previous commit instead of creating a new commit:
+
+git add .
+git commit --amend --no-edit
+
+git restore "git connection.txt" : restores to the previous commit
+
+create new repository on github
+
+copy the url
+
+git remote add origin https://github.com/Laxmi-Narayana/springGitWorkspace.git
+
+$ git remote -v
+# Verifies the new remote URL
+
+git push origin master
+
+git show-ref
+
+git push --set-upstream origin master
+
+git push origin main
+
+git push origin HEAD::main
+
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+git pull --rebase origin main
+
+git checkout -b main
+
+git fetch origin main
+
+git pull origin main
