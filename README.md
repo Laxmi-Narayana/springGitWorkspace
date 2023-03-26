@@ -1,4 +1,6 @@
 # springGitWorkspace
 SpringWorkspace
-Git commands
 Spring projects
+
+Git commands file
+Oracle db installation steps
