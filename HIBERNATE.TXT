@@ -1,0 +1,156 @@
+HIBERNATE
+ORM TOOL
+-> DATA LAYER
+-> IMPLEMENTS JPA -> CAN REPLACE WITH OTHER ORM TOOLS
+
+MAPPING MEMBER VARIABLES TO COLUMNS
+MAPPING RELATIONSHIPS
+HANDLING DATA TYPES
+MANAGING CHANGES TO OBJECT STATE
+
+OBJECT RELATIONAL MAPPING
+
+
+WITHOUT HIBERNATE
+JDBC DB CONFIGURATION
+MODEL OBJECT
+SERVICE METHOD TO CREATE THE MODEL OBJECT
+DATABASE DESIGN
+DAO METHOD TO SAVE THE OBJECT USING SQL QUERIES
+
+WITH HIBERNATE
+JDBC DB CONFIGURATION
+MODEL OBJECT -> ANNOTATIONS
+SERVICE METHOD TO CREATE THE OBJECT OF MODEL -> HIBERNATE API
+DATABASE DESIGN -> NOT NEEDED (HIBERNATE CREATES TABLES ITSELF)
+DAO METHOD TO SAVE THE OBJECT USING SQL -> NOT NEEDED -> HANDLED BY THE HIBERNATE API
+
+in src
+hibernate.cfg.xml
+url,uname,pword,dialect,driver,
+show_sql
+format_sql
+
+@Entity(name="") -> change of name for entity and table
+@Table(name="") -> name for table
+@Id @GeneratedValue(strategy=GeneratedType.AUTO/IDENTITY/SEQUENCE/TABLE)
+@Column(name="")
+@Basic(fetch,options)
+@Transient => ignores that variable/field to the table
+@Temporal(TemporalType.DATE)
+@Lob
+@Embeddable -> for foreignkey like tables
+@Embedded,@EmbeddedId -> that etire object as primary key
+@AttributeOverride(name="",column=@Column(name="")) -> multiple same objects then conflicts 
+@ElementCollection
+@JoinTable(name="",joinColumns=@JoinColumn(name=""))
+@GenericGenerator(name="hilo-gen",strategy="hilo")
+@CollectionId(columns = {@Column(name="")},generator="hilo-gen",type=@Type(type="long"))
+@NotFound(NotFoundAction.IGNORE)
+SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+Session session = sessionFactory.openSession();
+session.beginTransaction();
+session.save(obj);
+session.getTransaction().commit();
+session.close();
+
+session = sessionFactory.openSession();
+session.beginTransaction();
+obj = session.get(class,id);
+obj.getter methods
+
+hbm2ddl -> create -> drops and create each time
+update -> checks if already same exists if yes then inserts in existing one
+
+lazy loading,eager loading 
+-> proxy class have same getter methods, with lazy loading only other nested objects wont be fetched others are fetched
+and returns instance of that proxy class to the main class
+lazy is by default.
+after session is closed it wont work and its lazy to fetch and didnt fetch all objects at start.
+
+------------ relationships between tables
+one to one mapping
+one to many
+Many to one
+many to many
+
+@OneToMany
+@JoinTable(name="user_mobile",joinColumns = @JoinColumn(name="user_id"),
+	inverseJoinColumns = @JoinColumn(name = "mobile_id")
+)
+private Collection<Mobile> mobile = new ArrayList<Mobile>();
+
+@ManyToOne
+private UserDetails userDetails;
+
+-> creating an extra user_mobile table to store the mobile referencesi n a seperate table
+
+or 
+just save reference in mobile table
+
+@OneToMany(mappedBy="userDetails")
+private Collection<Mobile> mobile = new ArrayList<Mobile>();
+
+@ManyToOne
+@JoinColumn(name="user_id")
+private UserDetails userDetails;
+
+@ManyToMany(mappedBy="userDetails")
+@ManyToMany
+
+cascade = CasecadeType.PERSIST
+
+INHERITANCE:
+SINGLE TABLE STRATEGY(1 COMMON TABLE OF BASECLASS ALL EXTRA VARIABLES TO THE SAME TABLE)
+@INHERITANCE(STRATEGY=INHERITANCETYPE.)
+	SINGLE TABLE
+	JOINED
+	PER CLASS
+@DISCRIMINATORCOLUMN(NAME="MOBILE_TYPE",DISCRIMINATORTYPE=DISCRIMINATORTYPE.DATATYPE)
+@DISCRIMINATORVALUE("") -> ON THE SUBCLASSES TO BE INSERTED NAME INTO TABLE COLUMN
+TABLE_PER_CLASS -> NORMALIZED, IN SINGLE TABLE STRATEGY COLUMNS WILL BE NULL
+JOINED -> MORE NORMALIZED STRUCTURE -> NEED TO JOIN TABLES FOR ALL INFO
+
+
+Transient OBJECT IS OBJECT WHICH IS NOT SAVED INTO DB
+ANY CHANGE AFTER PERSIST TO THE OBJECT WILL BE ACTED AS UPDATE STATEMENTS AND AUTO COMMIT
+
+OBJECT STATES:
+Transient -> BEFORE SAVE
+PERSISTENT -> SAVE  AND THEN ANY CHANGE IS AUTO COMMIT
+DETACHED -> AFTER SESSION IS CLOSED
+
+SELECTBEFOREUPDATE.TRUE -> BEFORE UPDATE CHECKS IF UPDATE IS SAME AS ALREDY EXISTING IN DB
+
+HQL
+SQL WORKS ON TABLES
+HQL WORKS ON OBJECTS
+
+Query query = session.createQuery("from userDetails")
+query.setFirstResult(value); => pagination
+query.setMaxResults(value);
+List<UserDetails> list = query.list();
+
+"from userDetails where userId > ?" --> to handle sql injections 
+query.setInteger(0,Integer.parseInt(userIdValue)); 
+
+on entities we can write the querys i.e., specific entity specify query
+@NamedQuery(name="UserDetails.byId",query="from userDetails where userId = ?");
+@NamedNativeQuery(name="UserDetails.byName",query="select * from userDetails where userName = ?",resultClass=UserDetails.class)
+
+
+Criteria ct = session.createCriteria(UserDetails.class)
+criteria.add(Restrictions.eq("lucky","1"));
+
+criteria is to add projections and conditions (projections is aggregation and select columns)
+query.SETCACHEABLE(TRUE);
+List<UserDetails> users = (List<UserDetails>)criteria.list();
+
+HIBERNATE CACHE:
+FIRST LEVEL CACHE -> SESSION LIKE JDBC PREPAREDSTATEMENTS
+SECOND LEVEL CACHE-> ACROSS SESSIONS, ACROSS APPLICATION (SIMILAR TO SERVLET CONTEXT I.E., DATA AVAIABLE OVER THE WHOLE APPLICATION/USER)
+
+@CACHEABLE
+@CACHE(USAGE=CACHECONCURRENCYSTRATEGY.)
+<PROPERTY NAME="CACHE.USER_SECOND_LEVEL_CACHE">TRUE</PROPERTY>
+<PROPERTY NAME="CACHE.USER_QUERY_LEVEL_CACHE">TRUE</PROPERTY>

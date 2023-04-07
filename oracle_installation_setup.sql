@@ -106,3 +106,21 @@ lucky
 
 10) maven project -> ojdbc dependency jar -> java class -> connect
 11) Connection connection = DriverManager.getConnection(url,uname,pword);
+
+
+SELECT name, open_mode FROM v$pdbs;
+ALTER SESSION SET container=LUCKY2000;
+connect lucky/2000@LUCKY2000;
+
+to clear screen in sqlplus
+clear screen
+clear screenbuffer
+
+SELECT USER FROM DUAL;
+
+grant all privileges on lucky.user_details to lucky;
+GRANT CREATE ANY SEQUENCE, ALTER ANY SEQUENCE, DROP ANY SEQUENCE, SELECT ANY SEQUENCE TO lucky;
+
+SELECT BANNER, BANNER_FULL FROM v$version;
+
+SELECT * FROM USER_SYS_PRIVS

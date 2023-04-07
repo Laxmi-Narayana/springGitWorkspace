@@ -1,0 +1,88 @@
+maven-archetype-quickstart
+
+pom.xml
+change compiler to 11
+
+right click build path => jdk 11
+
+spring core,spring context
+
+bean
+
+configuration.xml file
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.w3.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		">
+
+<bean name = "customer"  class="com.spring.entity.Customer">
+	<property name = "customerId" value = "1" />
+	<property name = "customerName" value = "LaxmiNarayana Gellu" />
+	<property name = "customerAddress" value = "Hyderabad" />
+</bean>
+
+<bean name = "customerP"  class="com.spring.entity.Customer"> 
+</beans>
+<bean>
+	<property>
+	<list>
+		<value></value>
+		<value></value>
+		<value></value>
+		<null/>
+	</list>
+	</property>
+</bean>
+<bean>
+	<property>
+	<set>
+		<value></value>
+		<value></value>
+		<value></value>
+		<null/>
+	</set>
+	</property>
+</bean>
+<bean>
+	<property>
+	<map>
+		<entry key = "" value = "" />
+		<entry key = "" value = "" />
+	</map>
+	</property>
+</bean>
+
+
+<bean>
+	<property>
+	<props>
+		<prop key = "name">LaxmiNarayana</prop>
+	</props>
+	</property>
+</bean>
+
+<bean  name="customerAddress1" class = "com.spring.entity.CustomerAddress">
+	<property name="addressId" value = "1"/>
+	<property name="addressName" value = "Hyderabad"/>
+</bean>
+<bean  name="customerAddress2" class = "com.spring.entity.CustomerAddress">
+	<property name="addressId" value = "2"/>
+	<property name="addressName" value = "India"/>
+</bean>
+<bean name = "customer1" class="com.spring.entity.Customer">
+	<property name = "customerId" value = "1" />
+	<property name = "customerName" value = "LaxmiNarayana Gellu" />
+	<property name = "customerAddress">
+		<list>
+			<ref bean = "customerAddress1"/>
+			<ref bean = "customerAddress2"/>
+		</list>
+	</property>
+</bean>

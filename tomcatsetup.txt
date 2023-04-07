@@ -1,0 +1,24 @@
+1) download and setup jdk
+2) windows -> show view -> servers -> add new server -> download and tomcat -> double click -> select use tomcat installation save
+3) right click on server -> start -> browser -> localhost:8080
+4) goto tomcat/conf/tomcat users.xml -> uncomment user and change password to login onto tomcat server
+
+servlet runs in tomcat
+hence objects are created and destroyed by tomcat
+
+
+-> servlet object is created once (1 instance, each diff request response has diff threads but same servlet instance)
+-> request and response objects are created for each access 
+-> request object (also contains all metadata required to understand about the request)
+-> response object
+-> req and res are created each time because -> stateless object
+-> to save user data -> cookie(client side) and session (server side), servlet context
+-> one session object for each user/machine
+	=> objects available across requests
+	=> for login sessions and shopping carts
+	=> each request object has access to session object
+-> servlet context across servlets and users i.e., across entire application
+-> initialization code or common code for all users and whole application
+-> Servlet Config is similar to servlet context but only specific to the servlet.
+
+------------------------

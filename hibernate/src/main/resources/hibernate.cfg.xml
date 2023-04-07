@@ -1,0 +1,28 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+  "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+  "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+ <hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521/lucky2000</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+		
+		<property name="hibernate.connection.username">lucky</property>
+		<property name="hibernate.connection.password">2000</property>
+		<property name="connection.pool_size">1</property>
+		
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		
+		<property name="hbm2ddl.auto">create</property>
+		
+		<!-- names the annotated entity class -->
+		<mapping class="com.lucky.hibernate.model.UserDetails"/>
+		<mapping class="com.lucky.hibernate.model.Mobile"/>	
+	</session-factory>
+	
+</hibernate-configuration>
+  

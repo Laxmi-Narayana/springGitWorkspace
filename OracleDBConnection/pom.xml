@@ -15,11 +15,12 @@
             <artifactId>ojdbc11</artifactId>
             <version>21.9.0.0</version>
         </dependency>
+        
     </dependencies>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+	
 </project>
