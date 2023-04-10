@@ -1,0 +1,29 @@
+public void init() -> initialization configuration connection to db,webservice
+public void destroy() -> closing connections
+
+
+configuration technique:
+XML
+Spring Interfaces
+Annotations
+
+init -> after initialization of variables this gets called
+context.registerShutdownHood(); -> calls destroy method
+
+-- xml
+<bean class = "" name ="" init-method = "" destroy-method = "">
+</bean>
+
+-- interfaces
+InitializingBean
+DisposableBean
+
+-- annotations
+@PostConstruct
+@PreDestroy
+
+----------------------------
+AutoWiring -> automatically inject dependencies
+
+instead of manually configuring references to inject dependencies spring uses autowiring to inject automatically
+
